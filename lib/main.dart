@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: (RouteSettings settings) {
         switch (settings.name) {
-          case GalleryScreenRoute.name: return GalleryScreenRoute();
-          case CartScreenRoute.name: return CartScreenRoute();
-          case ProfileScreenRoute.name: return ProfileScreenRoute();
+          case GalleryScreenRoute.name: return GalleryScreenRoute(settings);
+          case CartScreenRoute.name: return CartScreenRoute(settings);
+          case ProfileScreenRoute.name: return ProfileScreenRoute(settings);
         }
       },
       // initialRoute: GalleryScreenRoute.name,

@@ -8,11 +8,12 @@ import 'profile_screen.dart';
 class ProfileScreenRoute extends MaterialPageRoute<void> {
   static const String name = 'profile';
 
-  ProfileScreenRoute()
+  ProfileScreenRoute([RouteSettings? settings])
       : super(
           builder: (ctx) => const ProfileScreen(
             widgetModelBuilder: _createProfileWm,
           ),
+          settings: settings,
         );
 }
 

@@ -5,14 +5,14 @@ import 'package:surf/ui/cart/cart_wm.dart';
 import 'cart_screen.dart';
 
 class CartScreenRoute extends MaterialPageRoute<void> {
-
   static const String name = 'cart';
 
-  CartScreenRoute()
+  CartScreenRoute([RouteSettings? settings])
       : super(
           builder: (ctx) => const CartScreen(
             widgetModelBuilder: _createCartWm,
           ),
+          settings: settings,
         );
 }
 
