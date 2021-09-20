@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surf/domain/cart.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 class CartWidgetModel extends WidgetModel {
@@ -8,13 +9,21 @@ class CartWidgetModel extends WidgetModel {
   }) : super(dependencies);
 
   final NavigatorState navigator;
-
-  // TODO remove
-  List<String> products = [];
+  late StreamedState<CartScreenInfoState> streamedState;
 
   @override
   void onLoad() {
-    // TODO add logic
+    streamedState = StreamedState(const CartScreenInfoState());
     super.onLoad();
   }
+}
+
+
+@immutable
+class CartScreenInfoState {
+  final CartInfo? cartInfo;
+
+  const CartScreenInfoState({
+    this.cartInfo,
+  });
 }

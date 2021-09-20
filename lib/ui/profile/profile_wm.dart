@@ -19,6 +19,7 @@ class ProfileWidgetModel extends WidgetModel {
   late ProfileInfo profileInfo;
   late StreamedState<ProfileScreenInfoState> streamedState;
 
+  final profileScreenTitle = 'Профиль';
   final nameFieldTitle = 'Имя';
   final emailFieldTitle = 'Электронная Почта';
   final addressFieldTitle = 'Адрес';

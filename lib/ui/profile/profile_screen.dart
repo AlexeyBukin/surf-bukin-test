@@ -29,7 +29,7 @@ class _ProfileScreenState
       key: wm.scaffoldKey,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Профиль'),
+        title: Text(wm.profileScreenTitle),
         // getting rid of shadow
         elevation: 0,
         backgroundColor: Colors.transparent,
