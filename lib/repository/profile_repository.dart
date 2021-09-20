@@ -8,6 +8,10 @@ abstract class ProfileRepository {
   Future<ImageProvider> getProfileImageProvider();
 
   Future<String> getShippingAddress();
+
+  Future<String> getEmail();
+
+  Future<String> getZipCode();
 }
 
 class TestProfileRepository implements ProfileRepository {
@@ -31,5 +35,15 @@ class TestProfileRepository implements ProfileRepository {
   @override
   Future<String> getShippingAddress() {
     return Future.value('город Владимир, проспект Мира, дом 69, квартира 420');
+  }
+
+  @override
+  Future<String> getEmail() {
+    return Future.value('natalia.ivanova@gmail.com');
+  }
+
+  @override
+  Future<String> getZipCode() {
+    return Future.value('234123');
   }
 }

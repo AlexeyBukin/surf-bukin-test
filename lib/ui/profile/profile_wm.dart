@@ -11,35 +11,46 @@ class ProfileWidgetModel extends WidgetModel {
   }) : super(dependencies);
 
   final NavigatorState navigator;
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final ProfileRepository repository;
 
-  StreamedState<ProfileScreenInfoState> streamedState =
-      StreamedState(ProfileScreenInfoState());
+  late StreamedState<ProfileScreenInfoState> streamedState;
 
   @override
   void onLoad() {
+    streamedState =
+        StreamedState(ProfileScreenInfoState());
     // unawaited
     loadInfo();
     super.onLoad();
   }
 
   Future<void> loadInfo() async {
-    Future name = repository.getName();
-    Future address = repository.getShippingAddress();
-    Future shapes = repository.getBodyShapesInfo();
-    Future image = repository.getProfileImageProvider();
-    streamedState.accept(ProfileScreenInfoState(
+    final name = repository.getName();
+    final address = repository.getShippingAddress();
+    final shapes = repository.getBodyShapesInfo();
+    final image = repository.getProfileImageProvider();
+    final email = repository.getEmail();
+    final zipCode = repository.getZipCode();
+    streamedState.accept(
+      ProfileScreenInfoState(
         profileInfo: ProfileInfo(
-      name: await name,
-      profileImageProvider: await image,
-      bodyShapes: await shapes,
-      shippingAddress: await address,
-    )));
+          name: await name,
+          profileImageProvider: await image,
+          bodyShapes: await shapes,
+          shippingAddress: await address,
+          email: await email,
+          zipCode: await zipCode,
+        ),
+      ),
+    );
   }
 }
 
 class ProfileScreenInfoState {
   ProfileInfo? profileInfo;
 
-  ProfileScreenInfoState({this.profileInfo});
+  ProfileScreenInfoState({
+    this.profileInfo,
+  });
 }
