@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:surf/domain/profile.dart';
 import 'package:surf/ui/drawer/drawer.dart';
+import 'package:surf/ui/profile/profile_dialog.dart';
+import 'package:surf/ui/profile/profile_wm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
-
-import 'profile_wm.dart';
 
 class ProfileScreen extends CoreMwwmWidget<ProfileWidgetModel> {
   const ProfileScreen({
@@ -36,9 +36,12 @@ class _ProfileScreenState
         actions: [buildSettingsAction(context)],
       ),
       drawer: const SportShopDrawer(),
-      body: StreamedStateBuilder(
-        streamedState: wm.streamedState,
-        builder: buildProfile,
+      body: ProfileDialogProxy(
+        key: wm.dialogKey,
+        child: StreamedStateBuilder(
+          streamedState: wm.streamedState,
+          builder: buildProfile,
+        ),
       ),
     );
   }
@@ -145,28 +148,33 @@ class _ProfileScreenState
     return Column(
       children: [
         ProfileDatafield(
-          title: 'Имя',
+          title: wm.nameFieldTitle,
           value: info.name,
+          onEdit: wm.openNameDialog,
         ),
         const Divider(),
         ProfileDatafield(
-          title: 'Электронная Почта',
+          title: wm.emailFieldTitle,
           value: info.email,
+          onEdit: wm.openEmailDialog,
         ),
         const Divider(),
         ProfileDatafield(
-          title: 'Адрес',
+          title: wm.addressFieldTitle,
           value: info.shippingAddress,
+          onEdit: wm.openAddressDialog,
         ),
         const Divider(),
         ProfileDatafield(
-          title: 'Почтовый Индекс',
+          title: wm.zipCodeFieldTitle,
           value: info.zipCode,
+          onEdit: wm.openZipCodeDialog,
         ),
         const Divider(),
         ProfileDatafield(
-          title: 'Размеры Одежды',
+          title: wm.bodyShapesFieldTitle,
           value: info.bodyShapes,
+          onEdit: wm.openBodyShapesDialog,
         ),
       ],
     );
@@ -177,12 +185,13 @@ class ProfileDatafield extends StatelessWidget {
   final String title;
   final String value;
 
-  // final void Function() onEdit;
+  final void Function() onEdit;
 
   const ProfileDatafield({
     Key? key,
     required this.title,
     required this.value,
+    required this.onEdit,
   }) : super(key: key);
 
   @override
@@ -199,7 +208,7 @@ class ProfileDatafield extends StatelessWidget {
       ),
       trailing: IconButton(
         icon: const Icon(Icons.edit),
-        onPressed: () {},
+        onPressed: onEdit,
       ),
     );
   }
