@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:surf/ui/drawer/drawer.dart';
+import 'package:surf/ui/gallery/gallery_wm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
-
-import 'gallery_wm.dart';
 
 class GalleryScreen extends CoreMwwmWidget<GalleryWidgetModel> {
   const GalleryScreen({
@@ -34,7 +33,7 @@ class _GalleryScreenState extends WidgetState<GalleryScreen, GalleryWidgetModel>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ...?snapshot.data?.map((e) => Text(e))
+                ...?snapshot.data?.map((e) => Text(e)),
               ],
             ),
           );

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:surf/ui/cart/cart_screen.dart';
 import 'package:surf/ui/cart/cart_wm.dart';
-
-import 'cart_screen.dart';
 
 class CartScreenRoute extends MaterialPageRoute<void> {
   static const String name = 'cart';

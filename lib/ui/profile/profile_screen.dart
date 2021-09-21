@@ -9,8 +9,8 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 class ProfileScreen extends CoreMwwmWidget<ProfileWidgetModel> {
   const ProfileScreen({
-    Key? key,
     required WidgetModelBuilder<ProfileWidgetModel> widgetModelBuilder,
+    Key? key,
   }) : super(
           key: key,
           widgetModelBuilder: widgetModelBuilder,
@@ -33,7 +33,7 @@ class _ProfileScreenState
         // getting rid of shadow
         elevation: 0,
         backgroundColor: Colors.transparent,
-        actions: [buildSettingsAction(context)],
+        actions: const [ProfileSettingsActionButton()],
       ),
       drawer: const SportShopDrawer(),
       body: ProfileDialogProxy(
@@ -43,13 +43,6 @@ class _ProfileScreenState
           builder: buildProfile,
         ),
       ),
-    );
-  }
-
-  Widget buildSettingsAction(context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 12.0),
-      child: GestureDetector(onTap: () {}, child: const Icon(Icons.settings)),
     );
   }
 
@@ -101,14 +94,16 @@ class _ProfileScreenState
               children: [
                 ColorFiltered(
                   colorFilter: const ColorFilter.mode(
-                      Colors.black38, BlendMode.luminosity),
+                    Colors.black38,
+                    BlendMode.luminosity,
+                  ),
                   child: ColorFiltered(
                     colorFilter:
                         ColorFilter.mode(imageFilterColor, BlendMode.color),
                     child: Image(image: info.profileImageProvider),
                   ),
                 ),
-                // TODO find better solution
+                //TODO(AlexeyBukin): find better solution
                 Container(
                   height: photoSize,
                 ),
@@ -134,8 +129,10 @@ class _ProfileScreenState
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child: Text(info.name.toUpperCase(),
-              style: const TextStyle(fontSize: 24)),
+          child: Text(
+            info.name.toUpperCase(),
+            style: const TextStyle(fontSize: 24),
+          ),
         ),
       ],
     );
@@ -181,6 +178,19 @@ class _ProfileScreenState
   }
 }
 
+class ProfileSettingsActionButton extends StatelessWidget {
+  const ProfileSettingsActionButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(right: 12.0),
+      child: GestureDetector(onTap: () {}, child: const Icon(Icons.settings)),
+    );
+  }
+
+}
+
 class ProfileDatafield extends StatelessWidget {
   final String title;
   final String value;
@@ -188,10 +198,10 @@ class ProfileDatafield extends StatelessWidget {
   final void Function() onEdit;
 
   const ProfileDatafield({
-    Key? key,
     required this.title,
     required this.value,
     required this.onEdit,
+    Key? key,
   }) : super(key: key);
 
   @override

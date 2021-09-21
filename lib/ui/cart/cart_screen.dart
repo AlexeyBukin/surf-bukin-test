@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:surf/domain/cart.dart';
+import 'package:surf/ui/cart/cart_wm.dart';
 import 'package:surf/ui/drawer/drawer.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
-import 'cart_wm.dart';
-
 class CartScreen extends CoreMwwmWidget<CartWidgetModel> {
   const CartScreen({
-    Key? key,
     required WidgetModelBuilder<CartWidgetModel> widgetModelBuilder,
+    Key? key,
   }) : super(
           key: key,
           widgetModelBuilder: widgetModelBuilder,
@@ -70,7 +69,7 @@ class _CartScreenState extends WidgetState<CartScreen, CartWidgetModel> {
 
   Widget buildBottomRow(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: Row(
         children: [
           Expanded(
@@ -79,7 +78,7 @@ class _CartScreenState extends WidgetState<CartScreen, CartWidgetModel> {
           ElevatedButton(
             child: Text('Купить'),
             onPressed: (){},
-          )
+          ),
         ],
       ),
     );
