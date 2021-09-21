@@ -9,8 +9,8 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 class ProfileScreen extends CoreMwwmWidget<ProfileWidgetModel> {
   const ProfileScreen({
-    Key? key,
     required WidgetModelBuilder<ProfileWidgetModel> widgetModelBuilder,
+    Key? key,
   }) : super(
           key: key,
           widgetModelBuilder: widgetModelBuilder,
@@ -46,7 +46,7 @@ class _ProfileScreenState
     );
   }
 
-  Widget buildSettingsAction(context) {
+  Widget buildSettingsAction(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 12.0),
       child: GestureDetector(onTap: () {}, child: const Icon(Icons.settings)),

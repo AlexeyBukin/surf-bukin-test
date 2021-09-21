@@ -52,9 +52,11 @@ class _SportShopDrawerItem extends StatelessWidget {
   final String routeName;
   final String title;
 
-  const _SportShopDrawerItem(
-      {Key? key, required this.routeName, required this.title})
-      : super(key: key);
+  const _SportShopDrawerItem({
+    required this.routeName,
+    required this.title,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
