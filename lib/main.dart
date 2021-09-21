@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      onGenerateRoute: (RouteSettings settings) {
+      onGenerateRoute: (settings) {
         switch (settings.name) {
           case GalleryScreenRoute.name: return GalleryScreenRoute(settings);
           case CartScreenRoute.name: return CartScreenRoute(settings);

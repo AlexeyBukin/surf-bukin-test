@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
 class GalleryWidgetModel extends WidgetModel {
+
+  final NavigatorState navigator;
+
   GalleryWidgetModel({
     required WidgetModelDependencies dependencies,
     required this.navigator,
   }) : super(dependencies);
-
-  final NavigatorState navigator;
 
   // TODO remove
   List<String> products = [];

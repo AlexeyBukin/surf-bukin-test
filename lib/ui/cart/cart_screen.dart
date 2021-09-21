@@ -6,8 +6,8 @@ import 'package:surf_mwwm/surf_mwwm.dart';
 
 class CartScreen extends CoreMwwmWidget<CartWidgetModel> {
   const CartScreen({
-    Key? key,
     required WidgetModelBuilder<CartWidgetModel> widgetModelBuilder,
+    Key? key,
   }) : super(
           key: key,
           widgetModelBuilder: widgetModelBuilder,
@@ -69,7 +69,7 @@ class _CartScreenState extends WidgetState<CartScreen, CartWidgetModel> {
 
   Widget buildBottomRow(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: Row(
         children: [
           Expanded(

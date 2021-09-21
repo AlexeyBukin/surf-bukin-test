@@ -65,10 +65,7 @@ class _SportShopDrawerItem extends StatelessWidget {
     return ListTile(
       onTap: isActive
           ? null
-          : () {
-              navigator.pop();
-              navigator.pushReplacementNamed(routeName);
-            },
+          : () => navigator..pop()..pushReplacementNamed(routeName),
       selected: isActive,
       title: Text(title),
     );

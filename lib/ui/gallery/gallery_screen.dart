@@ -33,7 +33,7 @@ class _GalleryScreenState extends WidgetState<GalleryScreen, GalleryWidgetModel>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ...?snapshot.data?.map((e) => Text(e))
+                ...?snapshot.data?.map((e) => Text(e)),
               ],
             ),
           );
