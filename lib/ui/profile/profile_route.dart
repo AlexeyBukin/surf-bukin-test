@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:surf/repository/profile_repository.dart';
+import 'package:surf/interactor/profile/profile_repository.dart';
 import 'package:surf/ui/profile/profile_screen.dart';
 import 'package:surf/ui/profile/profile_wm.dart';
 

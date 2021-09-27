@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:surf/domain/profile.dart';
-import 'package:surf/repository/profile_repository.dart';
+import 'package:surf/interactor/profile/profile_interactor.dart';
+import 'package:surf/interactor/profile/profile_repository.dart';
 import 'package:surf/ui/profile/profile_dialog.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
@@ -18,6 +19,7 @@ class ProfileWidgetModel extends WidgetModel {
   final GlobalKey<ProfileDialogProxyState> dialogKey =
       GlobalKey<ProfileDialogProxyState>();
   final ProfileRepository repository;
+  final ProfileInteractor interactor;
   late ProfileInfo profileInfo;
   late StreamedState<ProfileScreenInfoState> streamedState;
 
@@ -25,7 +27,7 @@ class ProfileWidgetModel extends WidgetModel {
     required WidgetModelDependencies dependencies,
     required this.navigator,
     required this.repository,
-  }) : super(dependencies);
+  }) : interactor = ProfileInteractor(repository), super(dependencies);
 
   @override
   void onLoad() {
@@ -84,23 +86,9 @@ class ProfileWidgetModel extends WidgetModel {
   }
 
   Future<void> _loadInfo() async {
-    final name = repository.getName();
-    final address = repository.getShippingAddress();
-    final shapes = repository.getBodyShapesInfo();
-    final image = repository.getProfileImageProvider();
-    final email = repository.getEmail();
-    final zipCode = repository.getZipCode();
-    profileInfo = ProfileInfo(
-      name: await name,
-      profileImageProvider: await image,
-      bodyShapes: await shapes,
-      shippingAddress: await address,
-      email: await email,
-      zipCode: await zipCode,
-    );
     await streamedState.accept(
       ProfileScreenInfoState(
-        profileInfo: profileInfo,
+        profileInfo: await interactor.loadProfileInfo(),
       ),
     );
   }
