@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surf/domain/product.dart';
 import 'package:surf/ui/drawer/drawer.dart';
 import 'package:surf/ui/gallery/gallery_wm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
@@ -25,7 +26,7 @@ class _GalleryScreenState extends WidgetState<GalleryScreen, GalleryWidgetModel>
         title: const Text('Галерея'),
       ),
       drawer: const SportShopDrawer(),
-      body: StreamBuilder<List<String>>(
+      body: StreamBuilder<List<Product>>(
         stream: Stream.value(wm.products),
         initialData: const [],
         builder: (context, snapshot) {
@@ -33,7 +34,7 @@ class _GalleryScreenState extends WidgetState<GalleryScreen, GalleryWidgetModel>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ...?snapshot.data?.map((e) => Text(e)),
+                ...?snapshot.data?.map((e) => Text(e.name)),
               ],
             ),
           );

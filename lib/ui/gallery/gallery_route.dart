@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:surf/interactor/gallery/gallery_repository.dart';
 import 'package:surf/ui/gallery/gallery_screen.dart';
 import 'package:surf/ui/gallery/gallery_wm.dart';
 
@@ -19,5 +20,6 @@ GalleryWidgetModel _createGalleryWm(BuildContext context) {
   return GalleryWidgetModel(
     dependencies: const WidgetModelDependencies(),
     navigator: Navigator.of(context),
+    repository: TestGalleryRepository(),
   );
 }

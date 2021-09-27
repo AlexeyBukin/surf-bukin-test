@@ -1,7 +1,12 @@
-
-
 class Product {
-  int price;
+  String name;
+  String? category;
+  int id;
+  int? price;
 
-  Product({required this.price});
+  Product({
+    required this.id,
+    required this.name,
+    this.category,
+  });
 }
