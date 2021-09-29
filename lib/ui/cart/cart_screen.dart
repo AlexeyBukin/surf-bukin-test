@@ -1,9 +1,11 @@
+import 'package:encore_annotations/encore_annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:surf/domain/cart.dart';
 import 'package:surf/ui/cart/cart_wm.dart';
 import 'package:surf/ui/drawer/drawer.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
+@screen
 class CartScreen extends CoreMwwmWidget<CartWidgetModel> {
   const CartScreen({
     required WidgetModelBuilder<CartWidgetModel> widgetModelBuilder,

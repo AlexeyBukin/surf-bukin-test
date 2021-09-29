@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:encore_annotations/encore_annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:surf/domain/profile.dart';
 import 'package:surf/ui/drawer/drawer.dart';
@@ -7,6 +8,7 @@ import 'package:surf/ui/profile/profile_dialog.dart';
 import 'package:surf/ui/profile/profile_wm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
+@screen
 class ProfileScreen extends CoreMwwmWidget<ProfileWidgetModel> {
   const ProfileScreen({
     required WidgetModelBuilder<ProfileWidgetModel> widgetModelBuilder,

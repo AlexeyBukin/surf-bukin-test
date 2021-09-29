@@ -1,9 +1,11 @@
+import 'package:encore_annotations/encore_annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:surf/domain/product.dart';
 import 'package:surf/ui/drawer/drawer.dart';
 import 'package:surf/ui/gallery/gallery_wm.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
+@screen
 class GalleryScreen extends CoreMwwmWidget<GalleryWidgetModel> {
   const GalleryScreen({
     Key? key,

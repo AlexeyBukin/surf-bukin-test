@@ -1,41 +1,63 @@
+import 'dart:io';
+
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/element/element.dart';
+import 'package:encore_annotations/encore_annotations.dart';
 import 'package:logger/logger.dart';
+import 'package:path/path.dart' as path;
 
-const someDirectory = '/home/alex/work/surf_bukin_test';
-const someLibrary = '/home/alex/work/surf_bukin_test/lib/analyzer/start_analysis.dart';
-
+@screen
 Future<void> main() async {
-  final logger = Logger(level: Level.verbose);
-  logger.d('logger created');
-  final contextCollection = AnalysisContextCollection(includedPaths: [someDirectory]);
-  logger.d('contextCollection created');
-  final analysisContext = contextCollection.contextFor(someDirectory);
-  final session = analysisContext.currentSession;
-  final library = await session.getResolvedLibrary(someLibrary);
-  if (library is ResolvedLibraryResult) {
-    final libraryElement = library.element;
-    final restoredUri = libraryElement.source.uri.toString();
-    logger.d('lets go!');
-    logger.d(library.units.first.content);
-    logger.d(libraryElement.name);
-    logger.d(libraryElement.topLevelElements);
-  } else {
-    logger.d('something went wrong');
-  }
+  const someDirectory = '/home/alex/work/surf_bukin_test';
+
+  final starter = AnalysisStarter(directory: someDirectory);
+  await starter.analyzeProject();
 }
 
-// Uses analysis driver to get info about file
+/// Starts analysis of chosen package in directory
+@screen
 class AnalysisStarter {
-  static void lmao() async {
-    final contextCollection = AnalysisContextCollection(includedPaths: []);
+  final String directory;
+  final Logger log;
 
-    final analysisContext = contextCollection.contextFor(someDirectory);
+  late final AnalysisContextCollection contextCollection;
+
+  AnalysisStarter({required this.directory}) : log = Logger();
+
+  /// Analyzes 'lib' folder of chosen project
+  Future<void> analyzeProject() async {
+    final dir = Directory(path.join(directory, 'lib'));
+    final list = dir.listSync(recursive: true, followLinks: false);
+    final files = list.whereType<File>().toList();
+    final dirs = list.whereType<Directory>();
+
+    contextCollection = AnalysisContextCollection(
+        includedPaths: dirs.map((e) => e.path).toList()..add(dir.path));
+
+    final work = files.map(analyzeLibrary);
+    final annotatedClassesIterables = await Future.wait(work);
+    final annotatedClasses =
+        annotatedClassesIterables.expand((i) => i).toList();
+
+    log.d(annotatedClasses);
+  }
+
+  /// Analyzes one library (file)
+  Future<Iterable<ClassElement>> analyzeLibrary(File libraryFile) async {
+    final analysisContext =
+        contextCollection.contextFor(libraryFile.parent.path);
     final session = analysisContext.currentSession;
-    final library = await session.getResolvedLibrary(someLibrary);
+    final library = await session.getResolvedLibrary(libraryFile.path);
     if (library is ResolvedLibraryResult) {
-      final libraryElement = library.element;
-      final restoredUri = libraryElement.source.uri.toString();
+      final annotatedClasses = library.element.topLevelElements
+          .whereType<ClassElement>()
+          .where((element) => element.metadata
+              .any((annotation) => annotation.element?.name == 'screen'));
+      return annotatedClasses;
+    } else {
+      log.w('$libraryFile: something went wrong');
+      return [];
     }
   }
 }
