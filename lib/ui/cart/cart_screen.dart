@@ -3,9 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:surf/domain/cart.dart';
 import 'package:surf/ui/cart/cart_wm.dart';
 import 'package:surf/ui/drawer/drawer.dart';
+import 'package:surf/ui/profile/profile_screen.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
-@screen
+@Screen(
+  specification: 'lmao',
+  design: 'design_link',
+  from: [
+    CartScreen,
+  ],
+  to: [
+    ProfileScreen,
+  ],
+  dialogs: [],
+)
 class CartScreen extends CoreMwwmWidget<CartWidgetModel> {
   const CartScreen({
     required WidgetModelBuilder<CartWidgetModel> widgetModelBuilder,
@@ -60,7 +71,9 @@ class _CartScreenState extends WidgetState<CartScreen, CartWidgetModel> {
         SingleChildScrollView(
           child: Column(
             children: [
-              ...info.products.map((product) => Text(product.product.price.toString())).toList(),
+              ...info.products
+                  .map((product) => Text(product.product.price.toString()))
+                  .toList(),
             ],
           ),
         ),
@@ -74,12 +87,12 @@ class _CartScreenState extends WidgetState<CartScreen, CartWidgetModel> {
       padding: const EdgeInsets.all(10.0),
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
             child: Text('Сумма'),
           ),
           ElevatedButton(
             child: Text('Купить'),
-            onPressed: (){},
+            onPressed: () {},
           ),
         ],
       ),

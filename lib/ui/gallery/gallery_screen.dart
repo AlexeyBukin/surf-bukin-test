@@ -1,26 +1,40 @@
 import 'package:encore_annotations/encore_annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:surf/domain/product.dart';
+import 'package:surf/ui/cart/cart_screen.dart';
 import 'package:surf/ui/drawer/drawer.dart';
 import 'package:surf/ui/gallery/gallery_wm.dart';
+import 'package:surf/ui/profile/profile_screen.dart';
 import 'package:surf_mwwm/surf_mwwm.dart';
 
-@screen
+/// [design_link]: https://google.com
+@Screen(
+  specification: 'https://google.com',
+  design: 'design_link',
+  from: [
+    CartScreen,
+  ],
+  to: [
+    ProfileScreen,
+  ],
+  dialogs: [],
+)
 class GalleryScreen extends CoreMwwmWidget<GalleryWidgetModel> {
   const GalleryScreen({
     Key? key,
     required WidgetModelBuilder<GalleryWidgetModel> widgetModelBuilder,
   }) : super(
-    key: key,
-    widgetModelBuilder: widgetModelBuilder,
-  );
+          key: key,
+          widgetModelBuilder: widgetModelBuilder,
+        );
 
   @override
   WidgetState<CoreMwwmWidget<GalleryWidgetModel>, GalleryWidgetModel>
-  createWidgetState() => _GalleryScreenState();
+      createWidgetState() => _GalleryScreenState();
 }
 
-class _GalleryScreenState extends WidgetState<GalleryScreen, GalleryWidgetModel> {
+class _GalleryScreenState
+    extends WidgetState<GalleryScreen, GalleryWidgetModel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

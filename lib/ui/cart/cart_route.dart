@@ -15,6 +15,7 @@ class CartScreenRoute extends MaterialPageRoute<void> {
         );
 }
 
+@mustCallSuper
 CartWidgetModel _createCartWm(BuildContext context) {
   return CartWidgetModel(
     dependencies: const WidgetModelDependencies(),

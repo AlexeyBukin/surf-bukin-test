@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:encore_annotations/encore_annotations.dart';
 import 'package:logger/logger.dart';
 import 'package:path/path.dart' as path;
+import 'package:surf/analyzer/metadata_reader.dart';
 
-@screen
 Future<void> main() async {
   const someDirectory = '/home/alex/work/surf_bukin_test';
 
@@ -16,7 +15,6 @@ Future<void> main() async {
 }
 
 /// Starts analysis of chosen package in directory
-@screen
 class AnalysisStarter {
   final String directory;
   final Logger log;
@@ -29,7 +27,7 @@ class AnalysisStarter {
   Future<void> analyzeProject() async {
     final dir = Directory(path.join(directory, 'lib'));
     final list = dir.listSync(recursive: true, followLinks: false);
-    final files = list.whereType<File>().toList();
+    final files = list.whereType<File>().where((file) => file.path.length > 3).toList();
     final dirs = list.whereType<Directory>();
 
     contextCollection = AnalysisContextCollection(
@@ -40,7 +38,22 @@ class AnalysisStarter {
     final annotatedClasses =
         annotatedClassesIterables.expand((i) => i).toList();
 
-    log.d(annotatedClasses);
+    annotatedClasses.map(classToString).forEach(log.d);
+  }
+
+  String classToString(ClassElement element) {
+    final path = element.librarySource.uri.toString();
+    final name = element.displayName;
+    final doc = element.documentationComment;
+    // final meta = element.metadata;
+    final meta = element.screenMetaParameters;
+    return [path, doc, name, meta].whereType<String>().join('\n');
+    // return '''
+    // $path
+    // $doc
+    // $meta
+    // $name
+    // ''';
   }
 
   /// Analyzes one library (file)
@@ -52,8 +65,7 @@ class AnalysisStarter {
     if (library is ResolvedLibraryResult) {
       final annotatedClasses = library.element.topLevelElements
           .whereType<ClassElement>()
-          .where((element) => element.metadata
-              .any((annotation) => annotation.element?.name == 'screen'));
+          .where((c) => MetadataReader(c).hasScreenAnnotation);
       return annotatedClasses;
     } else {
       log.w('$libraryFile: something went wrong');
